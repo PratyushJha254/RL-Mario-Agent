@@ -27,13 +27,13 @@ The following modules/libraries have been imported:
 </ul>
 
 <h3>Hyper-parameters:</h3> 
-The model has been trained for 10000 epochs with the following hyper-parameters:
+The model has been trained for 2000 epochs with the following hyper-parameters:
 <ul>
 <li>Learning rate: <code>lr=0.00025</code></li>
 <li>Discount Factor: <code>gamma=0.9</code></li>
 <li>Exploration decay: <code>exploration_decay=0.99</code></li>
 </ul>
-
+The model can also be trained for 10000 episodes for better results.
 <h3>Result</h3>
 After training the model, the following graph is observed for Episodes Trained vs Average Rewards (per 500 episodes):
   https://user-images.githubusercontent.com/108410048/176499258-0609ee71-69e0-4cdc-9d29-e9d4e022e0b5.jpeg
