@@ -18,23 +18,23 @@ However, it happens that the value of Q* gets overestimated. To solve this issue
 <h3>Modules/Libraries used:</h3>
 The following modules/libraries have been imported:
 <ul>
-<li>torch: For using tensors in our program which can be executed on GPU</li>
-<li>torch.nn: For Neural Networks</li>
-<li>pickle: For saving and loading files</li>
-<li>matplotlib.pyplot: For plotting Episodes trained vs Average Rewards Graph</li>
-<li>numpy: Python's library for working with arrays</li>
-<li>cv2: It is the module name for OpenCV-python</li>
+<li><code>torch</code>: For using tensors in our program which can be executed on GPU</li>
+<li><code>torch.nn</code>: For Neural Networks</li>
+<li><code>pickle</code>: For saving and loading files</li>
+<li><code>matplotlib.pyplot</code>: For plotting Episodes trained vs Average Rewards Graph</li>
+<li><code>numpy</code>: Python's library for working with arrays</li>
+<li><code>cv2</code>: It is the module name for OpenCV-python</li>
 </ul>
 
 <h3>Hyper-parameters:</h3> 
 The model has been trained for 10000 epochs with the following hyper-parameters:
 <ul>
-<li>Learning rate: lr=0.00025</li>
-<li>Discount Factor: gamma=0.9</li>
-<li>Exploration decay: exploration_decay=0.99</li>
+<li>Learning rate: <code>lr=0.00025</code></li>
+<li>Discount Factor: <code>gamma=0.9</code></li>
+<li>Exploration decay: <code>exploration_decay=0.99</code></li>
 </ul>
 
 <h3>Result</h3>
 After training the model, the following graph is observed for Episodes Trained vs Average Rewards (per 500 episodes):
-![WhatsApp Image 2022-06-29 at 6 55 31 PM](https://user-images.githubusercontent.com/108410048/176499258-0609ee71-69e0-4cdc-9d29-e9d4e022e0b5.jpeg)
+!https://user-images.githubusercontent.com/108410048/176499258-0609ee71-69e0-4cdc-9d29-e9d4e022e0b5.jpeg
 
