@@ -1,42 +1,50 @@
 # RL-Mario-Agent
-Training an RL Agent in Super Mario Bros environment for level 1 using OpenAI Gym and pyTorch.
 
-For using the Super Mario game environment, we imported <code>gym_super_mario_bros</code>
+A deep Q-learning agent that learns to play level 1-1 of *Super Mario Bros.* from raw game frames, built with PyTorch and OpenAI Gym.
+Project with the Vision and Language Group, IIT Roorkee (2022).
 
-https://pypi.org/project/gym-super-mario-bros/
+The game environment comes from [`gym-super-mario-bros`](https://pypi.org/project/gym-super-mario-bros/).
 
-<h3>Theory:</h3>
-Reinforcement Learning involves training an agent to learn a good strategy through a process of exploration and exploitation.<br>
-In this project, we have implemented Double Deep Q Learning to train our Agent.<br>
-Deep Q Learning is used so that rapid changes in Q does not cause it to diverge. Hence, we use two nets to provide stability:<br>
-<ol>
-<li>The Q Network is updated regularly</li>
-<li>The target network is an older version of the Q network updated occasionally.</li>
-</ol>
-However, it happens that the value of Q* gets overestimated. To solve this issue, Double Deep Q Learning is used. In Double Deep Q- Learning, we train two independent Q networks on disjoint subsets of experience. In this, the Q Network being trained is used to select the actions and the other Q Network is used to evaluate the actions and we keep alternating between the two.<br>
+## Method
 
-<h3>Modules/Libraries used:</h3>
-The following modules/libraries have been imported:
-<ul>
-<li><code>torch</code>: For using tensors in our program which can be executed on GPU</li>
-<li><code>torch.nn</code>: For Neural Networks</li>
-<li><code>pickle</code>: For saving and loading files</li>
-<li><code>matplotlib.pyplot</code>: For plotting Episodes trained vs Average Rewards Graph</li>
-<li><code>numpy</code>: Python's library for working with arrays</li>
-<li><code>cv2</code>: It is the module name for OpenCV-python</li>
-</ul>
+The agent uses **deep Q-learning (DQN)** with two standard stabilisation techniques:
 
-<h3>Hyper-parameters:</h3> 
-The model has been trained for 2000 epochs with the following hyper-parameters:
-<ul>
-<li>Learning rate: <code>lr=0.00025</code></li>
-<li>Discount Factor: <code>gamma=0.9</code></li>
-<li>Exploration decay: <code>exploration_decay=0.99</code></li>
-</ul>
-The model can also be trained for 10000 episodes for better results.
-<h3>Result</h3>
-After training the model, the following graph is observed for Episodes Trained vs Average Rewards (per 500 episodes):
-<img src="https://user-images.githubusercontent.com/108410048/176499258-0609ee71-69e0-4cdc-9d29-e9d4e022e0b5.jpeg"></img>
+- **Experience replay:** transitions are stored in a replay buffer (30,000 entries) and sampled in random mini-batches, which breaks the correlation between consecutive frames.
+- **Target network:** a second copy of the Q-network, updated every 5,000 steps, computes the learning targets, so the targets don't shift at every update.
 
+The training target is `r + γ · max_a Q_target(s', a)`, optimised with the Huber (smooth L1) loss and Adam.
 
-Project Made By : Pratyush Jha and Sudatt Kayal
+**Input processing:** frames are max-pooled over 4 skipped frames, converted to greyscale, resized to 84×84, stacked in groups of 4 and scaled to [0, 1]. The agent uses the `RIGHT_ONLY` action set.
+
+**Network:** three convolutional layers (32, 64, 64 filters) followed by two fully connected layers (512 units, then one output per action).
+
+## Hyperparameters
+
+| Parameter | Value |
+|---|---|
+| Episodes | 2000 |
+| Learning rate | 0.00025 |
+| Discount factor (γ) | 0.9 |
+| Batch size | 32 |
+| Replay buffer size | 30,000 |
+| Exploration (ε) | 1.0 → 0.02, decay 0.99 per update |
+| Target-network update | every 5,000 steps |
+
+## Results
+
+Average reward per 500 episodes over training:
+
+<img src="https://user-images.githubusercontent.com/108410048/176499258-0609ee71-69e0-4cdc-9d29-e9d4e022e0b5.jpeg" width="500">
+
+The agent learns to make steady progress through the level and reached the end of level 1-1 during training. Longer training (around 10,000 episodes) would likely make this more consistent.
+
+## Running
+
+Open `MARIO_FINAL.ipynb` in Google Colab; the first cell installs the dependencies.
+
+## Libraries
+
+PyTorch, gym / gym-super-mario-bros, nes-py, OpenCV, NumPy, Matplotlib.
+
+---
+Project by **Pratyush Jha** and **Sudatt Kayal**.
